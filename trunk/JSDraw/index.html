@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>JSDraw Main Page</title>
+		<script type="text/javascript" src="jsdraw/jsdraw-core.js"></script>
+		<script type="text/javascript" src="jsdraw/jsdraw-drawing.js"></script>
+		<script type="text/javascript">
+			JSDraw.readyToDraw(function() {
+				var g = new JSDraw.drawing.Graphics();
+				g.drawSquare(200, 100, 10);
+				g.setColor("#FF0000");
+				g.drawRect(400, 300, 20, 50);
+				g.setColor("#00FF00");
+				g.drawSquare(300, 500, 30);
+				g.drawLine(10, 40, 20, 50, 1);
+                g.drawLine(100, 50, 500, 600, 3);
+                g.setColor("#0000FF");
+                g.drawLine(500, 300, 900, 400, 2);
+				g.drawCircle(100, 200, 100, 3);
+			});
+		</script>
+    </head>
+    <body>
+        <h1>JSDraw</h1>
+		<h2>This is a JavaScript drawing library.</h2>
+    </body>
+</html>
