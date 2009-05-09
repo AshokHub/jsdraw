@@ -9,16 +9,40 @@
 		<script type="text/javascript">
 			JSDraw.readyToDraw(function() {
 				var g = new JSDraw.drawing.Graphics();
-				g.drawSquare(200, 100, 10);
+				// fill square test
 				g.setColor("#FF0000");
-				g.drawRect(400, 300, 20, 50);
+				g.fillSquare(200, 100, 10);
+				
+				// fill rectangle test
 				g.setColor("#00FF00");
-				g.drawSquare(300, 500, 30);
-				g.drawLine(10, 40, 20, 50, 1);
-                g.drawLine(100, 50, 500, 600, 3);
-                g.setColor("#0000FF");
-                g.drawLine(500, 300, 900, 400, 2);
+				g.fillRect(400, 300, 20, 50);
+				
+				// draw line test
+				g.setColor("#0000FF");
+				g.drawLine(100, 200, 150, 250, 2); // normal 1
+				g.drawLine(350, 450, 300, 400, 1); // normal 2
+				g.drawLine(100, 200, 100, 400, 3); // vertical
+				g.drawLine(100, 200, 500, 200, 3); // horizontal
+				
+				// draw rectangle test
+				g.setColor("#FFFF00");
+				g.drawRect(200, 500, 80, 60, 2);
+				
+				// draw circle test
+				g.setColor("#00FFFF");
 				g.drawCircle(100, 200, 100, 3);
+				
+				// fill circle test
+				//g.fillCircle(400, 400, 10);
+				
+				// draw string test
+				g.setColor("#000000");
+				g.drawString(500, 500, "Hello, JSDraw!");
+				g.setFontFamily("Times New Roman");
+				g.setFontSize("20px");
+				g.setFontStyle("italic");
+				g.setFontWeight("bold");
+				g.drawString(200, 500, "Change");
 			});
 		</script>
     </head>
