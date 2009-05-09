@@ -50,7 +50,11 @@
 	// Graphics Attribute
 	//**************************************************
 	var color = "#000000"; /**< Color of graphics. */
-	
+	var fontFamily = "Arial"; /**< Font family name. */
+	var fontSize = "12px"; /**< Font size. */
+	var fontWeight = "normal"; /**< Font weight. */
+	var fontStyle = "normal"; /**< Font style. */
+
 	/**
 	 * Gets color of current graphics.
 	 * 
@@ -72,40 +76,88 @@
 		color = newColor;
 	};
 	
+	/**
+	 * Gets font family name.
+	 * 
+	 * @return font family
+	 */
+	this.getFontFamily = function () {
+		return fontFamily;
+	};
+	
+	/**
+	 * Sets font family name of text.
+	 * 
+	 * @param font family name
+	 */
+	this.setFontFamily = function (family) {
+		fontFamily = family;
+	};
+	
+	/**
+	 * Gets font size.
+	 * 
+	 * @return font size
+	 */
+	this.getFontSize = function () {
+		return fontSize;
+	}
+	
+	/**
+	 * Sets font size. The valid value is the same to css defination.
+	 * 
+	 * @param font size
+	 */
+	this.setFontSize = function (size) {
+		fontSize = size;
+	};
+	
+	/**
+	 * Gets font weight.
+	 * 
+	 * @return font weight
+	 */
+	this.getFontWeight = function () {
+		return fontWeight;
+	}
+	
+	/**
+	 * Sets font weight. The valid value is the same to css defination.
+	 * 
+	 * @param weight font weight
+	 */
+	this.setFontWeight = function (weight) {
+		fontWeight = weight;	
+	};
+	
+	/**
+	 * Gets font style.
+	 */
+	this.getFontStyle = function () {
+		return fontStyle;
+	}
+	
+	/**
+	 * Sets font style. The valid value is the same to css defination.
+	 * 
+	 * @param style font style
+	 */
+	this.setFontStyle = function (style) {
+		fontStyle = style;
+	};
+	
 	//**************************************************
 	// Drawing functions
 	//**************************************************
 	/**
-	 * Draws a square.
-	 * 
-	 * @param x abscissa of this square, digit only without "px"
-	 * @param y ordinate of this square, digit only without "px"
-	 * @param size size of this square, digit only without "px"
-	 */
-	this.drawSquare = function (x, y, size) {
-		if(!checkPositiveInteger(x, y, size)) {
-			alert("Input parameter should be positive integer!");
-			return;
-		}
-		var dot = document.createElement("div");
-		dot.style.position = "absolute";
-		dot.style.left = x + "px";
-		dot.style.top = y + "px";
-		dot.style.backgroundColor = color;
-		dot.style.width = size + "px";
-		dot.style.height = size + "px";
-		document.body.appendChild(dot);
-	};
-	
-	/**
-	 * Draws a rectangle.
+	 * Fills a rectangle.
 	 * 
 	 * @param x abscissa of left top point of this rectangle, digit only without "px"
 	 * @param y ordinate of left top point of this rectangle, digit only without "px"
 	 * @param width width of rectangle, digit only without "px"
 	 * @param height height of rectangle, digit only without "px"
 	 */
-	this.drawRect = function (x, y, width, height) {
+	this.fillRect = function (x, y, width, height) {
 		if(!checkPositiveInteger(x, y, width, height)) {
 			alert("Input parameter should be positive integer!");
 			return;
@@ -121,31 +173,76 @@
 	};
 	
 	/**
+	 * Fills a square.
+	 * 
+	 * @param x abscissa of this square, digit only without "px"
+	 * @param y ordinate of this square, digit only without "px"
+	 * @param size size of this square, digit only without "px"
+	 */
+	this.fillSquare = function (x, y, size) {
+		if(!checkPositiveInteger(x, y, size)) {
+			alert("Input parameter should be positive integer!");
+			return;
+		}
+		this.fillRect(x, y, size, size);
+	};
+	
+	/**
+	 * Draws a rectangle.
+	 * 
+	 * @param x abscissa of left top point of this rectangle, digit only without "px"
+	 * @param y ordinate of left top point of this rectangle, digit only without "px"
+	 * @param width width of rectangle, digit only without "px"
+	 * @param height height of rectangle, digit only without "px"
+	 * @param weight weight of this rectangle outline, digit only without "px"
+	 */
+	this.drawRect = function (x, y, width, height, weight) {
+		if(!checkPositiveInteger(x, y, width, height, weight)) {
+			alert("Input parameter should be positive integer!");
+			return;
+		}
+		var xw = x + width;
+		var yh = y + height;
+		this.drawLine(x, y, xw, y, weight);
+		this.drawLine(x, y, x, yh, weight);
+		this.drawLine(xw, y, xw, yh, weight);
+		this.drawLine(x, yh, xw, yh, weight);
+	}
+	
+	/**
 	 * Draws a line. Using Bresenham algorithm.
 	 * 
 	 * @param x0 abscissa of start point
 	 * @param y0 ordinate of start point
 	 * @param x1 abscissa of end point
 	 * @param y1 ordinate of end point
-	 * @param width width of this line
+	 * @param weight width of this line
 	 */
-	this.drawLine = function (x0, y0, x1, y1, width) {
-		if(!checkPositiveInteger(x0, y0, x1, y1, width)) {
+	this.drawLine = function (x0, y0, x1, y1, weight) {
+		if(!checkPositiveInteger(x0, y0, x1, y1, weight)) {
 			alert("Input parameter should be positive integer!");
 			return;
 		}
 		var dx = x1 - x0;
 		var dy = y1 - y0;
-		var e = -dx;
-		var x = x0;
-		var y = y0;
-		for(var i = 0; i < dx; i++) {
-			this.drawSquare(x, y, width);
-			x++;
-			e = e + 2 * dy;
-			if(e >= 0) {
-				y++;
-				e = e - 2 * dx;
+		if(dx === 0) { // vertical
+			this.fillRect(x0, y0, weight, dy);
+		} else if(dy === 0) { // horizontal
+			this.fillRect(x0, y0, dx, weight);
+		} else { // others
+			dx = dx > 0 ? dx : -dx;
+			dy = dy > 0 ? dy : -dy;
+			var e = -dx;
+			var x = x0;
+			var y = y0;
+			for(var i = 0; i < dx; i++) {
+				this.fillSquare(x, y, weight);
+				x++;
+				e = e + 2 * dy;
+				if(e >= 0) {
+					y++;
+					e = e - 2 * dx;
+				}
 			}
 		}
 	};
@@ -156,10 +253,10 @@
 	 * @param xc abscissa of the circle center point
 	 * @param yc ordinate of the circle center point
 	 * @param radius radius of this circle
-	 * @param width width of circle outline
+	 * @param weight width of circle outline
 	 */
-	this.drawCircle = function (xc, yc, radius, width) {
-		if(!checkPositiveInteger(xc, yc, radius, width)) {
+	this.drawCircle = function (xc, yc, radius, weight) {
+		if(!checkPositiveInteger(xc, yc, radius, weight)) {
 			alert("Input parameter should be positive integer!");
 			return;
 		}
@@ -167,7 +264,7 @@
 		var y = radius;
 		var d = 3 - 2 * radius;
 		while(x < y) {
-			draw8Points(this, xc, yc, x, y, width);
+			draw8Points(this, xc, yc, x, y, weight);
 			if(d < 0) {
 				d = d + 4 * x + 6;
 			} else {
@@ -177,9 +274,58 @@
 			x++;
 		}
 		if(x === y) {
-			draw8Points(this, xc, yc, x, y, width);
+			draw8Points(this, xc, yc, x, y, weight);
 		}
 	};
+	
+	this.fillCircle = function (xc, yc, radius) {
+		alert("fillCircle() Not implementation yet!");
+//		if(!checkPositiveInteger(xc, yc, radius)) {
+//			alert("Input parameter should be positive integer!");
+//			return;
+//		}
+//		var x = 0;
+//		var y = radius;
+//		var d = 3 - 2 * radius;
+//		while(x < y) {
+//			draw8Lines(this, xc, yc, x, y);
+//			if(d < 0) {
+//				d = d + 4 * x + 6;
+//			} else {
+//				d = d + 4 * (x - y) + 10;
+//				y--;
+//			}
+//			x++;
+//		}
+//		if(x === y) {
+//			draw8Lines(this, xc, yc, x, y);
+//		}
+	};
+	
+	/**
+	 * Draws a string at position (x, y).
+	 * 
+	 * @param abscissa of string left top point
+	 * @param ordinate of the string left top point
+	 * @param string to draw
+	 */
+	this.drawString = function (x, y, string) {
+		if(!checkPositiveInteger(x, y)) {
+			alert("Input parameter should be positive integer!");
+			return;
+		}
+		var div = document.createElement("div");
+		div.style.position = "absolute";
+		div.style.left = x + "px";
+		div.style.top = y + "px";
+		div.style.color = color;
+		div.style.fontFamily = fontFamily;
+		div.style.fontSize = fontSize;
+		div.style.fontStyle = fontStyle;
+		div.style.fontWeight = fontWeight;
+		div.innerHTML = string;
+		document.body.appendChild(div);
+	}
 	
 	//**************************************************
 	// Private functions
@@ -206,18 +352,25 @@
 	 * @param yc ordinate of the circle center point
 	 * @param x x axis offset
 	 * @param y y axis offset
-	 * @param width width of this circle outline
+	 * @param weight weight of this circle outline
 	 */
-	var draw8Points = function (g, xc, yc, x, y, width) {
-		g.drawSquare(xc + x, yc + y, width);
-		g.drawSquare(xc - x, yc + y, width);
-		g.drawSquare(xc + x, yc - y, width);
-		g.drawSquare(xc - x, yc - y, width);
-		g.drawSquare(xc + y, yc + x, width);
-		g.drawSquare(xc - y, yc + x, width);
-		g.drawSquare(xc + y, yc - x, width);
-		g.drawSquare(xc - y, yc - x, width);
+	var draw8Points = function (g, xc, yc, x, y, weight) {
+		g.fillSquare(xc + x, yc + y, weight);
+		g.fillSquare(xc - x, yc + y, weight);
+		g.fillSquare(xc + x, yc - y, weight);
+		g.fillSquare(xc - x, yc - y, weight);
+		g.fillSquare(xc + y, yc + x, weight);
+		g.fillSquare(xc - y, yc + x, weight);
+		g.fillSquare(xc + y, yc - x, weight);
+		g.fillSquare(xc - y, yc - x, weight);
 	};
+	
+//	var draw8Lines = function (g, xc, yc, x, y) {
+//		g.drawLine(xc - y, yc + x, xc + y, yc + x, 2);
+//		g.drawLine(xc - x, yc + y, xc + x, yc + y, 2);
+//		g.drawLine(xc - x, yc - y, xc + x, yc - y, 2);
+//		g.drawLine(xc - y, yc - x, xc + y, yc - x, 2);
+//	}
 	
  };
  
