@@ -1,7 +1,7 @@
 #summary A popular script language on web.
 #labels JavaScript,JSDraw
 
-= Introduction =
+= What is JavaScript? =
 
 JavaScript is a scripting language used to enable programmatic access to objects within other applications. It is primarily used in the form of client-side JavaScript for the development of dynamic websites. JavaScript is a dialect of the ECMAScript standard and is characterized as a dynamic, weakly typed, prototype-based language with first-class functions. JavaScript was influenced by many languages and was designed to look like Java, but to be easier for non-programmers to work with.
 
