@@ -1,5 +1,4 @@
 #summary A popular script language on web.
-#labels JavaScript,JSDraw
 
 = What is JavaScript? =
 
