@@ -1,7 +1,0 @@
-#summary Introduction to JSDraw
-
-= Introduction =
-
-JSDraw is a pure JavaScript library. With JSDraw you can draw objects such as lines, rectangles, circles and other shapes on your web pages. It is quite easy to add JSDraw into your web pages. It implements without any third party libraries.
-
-JSDraw has a Java2D-like APIs. This makes it easy to use. It is object-oriented in JavaScript.
