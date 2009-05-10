@@ -1,0 +1,7 @@
+#summary JSDraw Manual
+#labels Featured,JSDraw
+
+= Content =
+
+  * Gets JSDraw
+  * Adds JSDraw into your own pages
