@@ -1,5 +1,4 @@
 #summary Introduction to JSDraw
-#labels JavaScript,JSDraw,introduction
 
 = Introduction =
 
