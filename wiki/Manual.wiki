@@ -1,7 +1,7 @@
 #summary JSDraw Manual
-#labels Featured,JSDraw
+#labels Featured
 
 = Content =
 
-  * Gets JSDraw
+  * [http://code.google.com/p/jsdraw/wiki/GetsJSDraw Gets JSDraw]
   * Adds JSDraw into your own pages
